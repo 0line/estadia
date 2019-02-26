@@ -127,11 +127,6 @@ $(document).ready(function($) {
 		})
 	};
 	burgerMenu();
-
-	$('.colorlib-table-cell ul li').on('click',function(event) {
-		$('body').removeClass('menu-show');
-		$('#colorlib-main-nav > .js-colorlib-nav-toggle').removeClass('show');
-	});
 	
 	var counter = function() {
 		
