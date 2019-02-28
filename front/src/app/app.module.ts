@@ -19,6 +19,8 @@ import { BlogContentComponent } from './components/blog-content/blog-content.com
 import { ContactContentComponent } from './components/contact-content/contact-content.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
+import { NavAdminComponent } from './components/nav-admin/nav-admin.component';
+import { HomeAdminComponent } from './components/home-admin/home-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,8 @@ import { LoginComponent } from './components/login/login.component';
     FooterComponent,
     LoginComponent,
     AlertComponent,
+    NavAdminComponent,
+    HomeAdminComponent
   ],
   imports: [
     /************************/

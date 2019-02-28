@@ -8,9 +8,7 @@ import { AlertService } from 'src/app/services/alert/alert.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss',
-  '../../../assets/admin/css/font-face.css',
-  '../../../assets/admin/vendor/bootstrap-4.1/bootstrap.min.css',
-  '../../../assets/admin/css/theme.css']
+'./login.css']
 })
 export class LoginComponent implements OnInit {
 
@@ -41,16 +39,16 @@ export class LoginComponent implements OnInit {
   sendData(){
 
     this.submitted = true;
-     //Si el formulario es invalido retorna una respuesta a la vista
+    //Si el formulario es invalido retorna una respuesta a la vista
     if (this.dataUser.invalid) {
             return;
     }
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.login(this.f.user.value, this.f.password.value)
             .pipe(first())
             .subscribe(
                 data => {
-                  this.router.navigate([this.returnUrl]);
+                  //this.router.navigate([this.returnUrl]);
                 },
                 error => {
                     this.alertService.error(error);

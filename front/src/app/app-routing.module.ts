@@ -7,6 +7,7 @@ import { BlogContentComponent } from './components/blog-content/blog-content.com
 import { ContactContentComponent } from './components/contact-content/contact-content.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { HomeAdminComponent } from './components/home-admin/home-admin.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/inicio', pathMatch: 'full'},
@@ -15,12 +16,13 @@ const routes: Routes = [
 	{ path: 'portfolio', component: PortfolioContentComponent },
 	{ path: 'blog', component: BlogContentComponent },
 	{ path: 'contacto', component: ContactContentComponent },
+	{ path: 'login', component: LoginComponent },
 	{
 		path: 'admin',
 		//canActivateChild: [RoleGuard],        // <-- This guard will run before the router directs you to the route
 		//data: { roles : ['ROLE_USER'] },      // <-- Current Login in user must have role user.   You can access this array inside your guard.
 		children: [
-			{ path: 'login', component: LoginComponent },
+		{ path: 'home-admin', component: HomeAdminComponent }
 		// <-- The rest of your user routes
 		]
 	},
@@ -28,7 +30,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
 export class AppRoutingModule { }
