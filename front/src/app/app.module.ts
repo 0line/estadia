@@ -1,8 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+/**Angular Material */
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
+import {MatTableModule} from '@angular/material/table';
+/**Angular Material */
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+/**Mis componentes estaticos */
 import { NavMainComponent } from './components/nav-main/nav-main.component';
 import { HomeSliderComponent } from './components/home-slider/home-slider.component';
 import { HomeContentComponent } from './components/home-content/home-content.component';
@@ -11,9 +16,16 @@ import { PortfolioContentComponent } from './components/portfolio-content/portfo
 import { BlogContentComponent } from './components/blog-content/blog-content.component';
 import { ContactContentComponent } from './components/contact-content/contact-content.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { NavAdminComponent } from './components/nav-admin/nav-admin.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { PostComponent } from './components/post/post.component';
+import {PageComponent} from './components/page/page.component';
+/**Mis LoaderComponent Dynamics */
+import {LoaderComponentService} from './services/loader-component.service';
 
 @NgModule({
   declarations: [
+    /**Mis Componentes estaticos */
     AppComponent,
     NavMainComponent,
     HomeSliderComponent,
@@ -22,13 +34,30 @@ import { FooterComponent } from './components/footer/footer.component';
     PortfolioContentComponent,
     BlogContentComponent,
     ContactContentComponent,
-    FooterComponent
+    FooterComponent,
+    NavAdminComponent,
+    PostComponent,
+    PageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    /**Angular Material */
+    BrowserAnimationsModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatTableModule
+    /**Angular Material */
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [LoaderComponentService],
+  bootstrap: [AppComponent],
+  entryComponents:[PostComponent,PageComponent]
 })
 export class AppModule { }
