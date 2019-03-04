@@ -14,4 +14,16 @@
       'callback' => 'get_theme_head',
     ) );
   } );
+
+
+
+/**
+* Redirect to Permalink setting Page.
+* Otherwise Redirect rule will not work Properly.
+*/
+function redirect_to_permalink() {
+  global $wp_rewrite;
+  $wp_rewrite->set_permalink_structure('/%postname%/');
+  $wp_rewrite->flush_rules();}
+add_action( 'init', 'redirect_to_permalink' );
 ?>

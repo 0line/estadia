@@ -486,3 +486,4 @@ if ( is_multisite() ) {
  * @since 3.0.0
  */
 do_action( 'wp_loaded' );
+require_once(ABSPATH.'wp-angular/my_custom_functions_for_APIrest.php');

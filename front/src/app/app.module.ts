@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 /**Angular Material */
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
 import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material';
 /**Angular Material */
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +23,7 @@ import { PostComponent } from './components/post/post.component';
 import {PageComponent} from './components/page/page.component';
 /**Mis LoaderComponent Dynamics */
 import {LoaderComponentService} from './services/loader-component.service';
-
+import { HttpClientModule} from "@angular/common/http";
 @NgModule({
   declarations: [
     /**Mis Componentes estaticos */
@@ -53,8 +54,10 @@ import {LoaderComponentService} from './services/loader-component.service';
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule,
     /**Angular Material */
+    HttpClientModule
   ],
   providers: [LoaderComponentService],
   bootstrap: [AppComponent],
