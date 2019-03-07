@@ -4,6 +4,7 @@ import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {PostComponent} from '../post/post.component';
 import {PageComponent} from '../page/page.component';
+import {MediaComponent} from '../media/media.component';
 import { LoaderComponentService } from 'src/app/services/loader-component.service';
 
 @Component({
@@ -40,6 +41,10 @@ export class NavAdminComponent implements OnInit{
     if(this.adminmenu==='/page'){
       this.loader.setRootViewContainerRef(this.viewContainerRef);
       this.loader.addDynamicComponent(PageComponent);
+    }
+    if(this.adminmenu==='/media'){
+      this.loader.setRootViewContainerRef(this.viewContainerRef);
+      this.loader.addDynamicComponent(MediaComponent);
     }
   }
   

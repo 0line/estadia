@@ -10,6 +10,7 @@ import { NavAdminComponent } from './components/nav-admin/nav-admin.component';
 const routes: Routes = [
 	{path: 'admin', component: NavAdminComponent},
 	{path: 'page', component: NavAdminComponent},
+	{path: 'media', component: NavAdminComponent},
 	{ path: 'inicio', component: HomeContentComponent },
 	{ path: 'sobre-mí', component: AboutContentComponent },
 	{ path: 'portfolio', component: PortfolioContentComponent },

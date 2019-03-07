@@ -24,3 +24,4 @@ $estadia-theme: mat-dark-theme($primary, $accent, $warn);
 // that you are using.
 @include angular-material-theme($estadia-theme);
 @import '~@fortawesome/fontawesome-free/css/all.css';
+@import "~bootstrap/dist/css/bootstrap.css";

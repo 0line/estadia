@@ -24,6 +24,7 @@ import {PageComponent} from './components/page/page.component';
 /**Mis LoaderComponent Dynamics */
 import {LoaderComponentService} from './services/loader-component.service';
 import { HttpClientModule} from "@angular/common/http";
+import { MediaComponent } from './components/media/media.component';
 @NgModule({
   declarations: [
     /**Mis Componentes estaticos */
@@ -38,7 +39,8 @@ import { HttpClientModule} from "@angular/common/http";
     FooterComponent,
     NavAdminComponent,
     PostComponent,
-    PageComponent
+    PageComponent,
+    MediaComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,6 @@ import { HttpClientModule} from "@angular/common/http";
   ],
   providers: [LoaderComponentService],
   bootstrap: [AppComponent],
-  entryComponents:[PostComponent,PageComponent]
+  entryComponents:[PostComponent,PageComponent,MediaComponent]
 })
 export class AppModule { }
