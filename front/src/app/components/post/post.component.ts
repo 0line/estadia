@@ -10,13 +10,13 @@ import {Post} from '../../models/post';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
-  displayedColumns: string[] = ['numero', 'titulo','status','url'];
+  displayedColumns: string[] = ['numero', 'titulo','url','status','acciones'];
   dataSource:any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  
   posts: Observable<Post[]>;
   constructor(private wp:PostService) {
     this.dataSource= this.posts = this.wp.getPost();
-    
   }
 
   ngOnInit() {

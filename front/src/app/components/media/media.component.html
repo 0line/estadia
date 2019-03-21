@@ -1,4 +1,12 @@
-<p>
-  media works!
-  {{media}}
-</p>
+<section class="container-fluid back">
+  <article class="row">
+    <div class="col-md-3" *ngFor="let file of media | async as media;">
+      <div class="card">
+        <img src="{{file.source_url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text" [ngStyle]="{'color': '#000'}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>

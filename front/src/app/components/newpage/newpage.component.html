@@ -1,0 +1,63 @@
+<mat-toolbar>
+  <a class="btn btn-dark" routerLink="/page">Regresar</a>
+</mat-toolbar>
+<section class="container-fluid">
+    <article class="row">
+      <section class="col-md-12">
+        <form>
+          <mat-form-field class="col-md-8">
+            <input matInput type="text" placeholder="Titulo">
+          </mat-form-field>
+        
+          <mat-form-field class="col-md-4">
+            <input matInput type="url" placeholder="Url" value="">
+          </mat-form-field>
+          
+        </form>
+      </section>
+    </article>
+  </section>
+
+  <!-- <ng-template #componentes></ng-template> -->
+  <mat-tab-group mat-align-tabs="center" (selectedTabChange)="getContentTab($event)">
+    <mat-tab label="Editor" >
+      <section class="container-fluid p-4">
+        <article class="row">
+          <div class="col-md-12">
+              <ng-container #editor></ng-container>
+          </div>
+        </article>
+      </section>
+    </mat-tab>
+    <mat-tab label="Builder">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-end">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            Componentes
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav justify-content-end">
+              <button class="btn btn-dark m-1" (click)="addSliderBuilder()">Slider</button>
+              <button class="btn btn-dark m-1">Hero</button>
+              <button class="btn btn-dark m-1" (click)="addEditorBuilder()">Editor</button>
+              <button class="btn btn-dark m-1">Sobre tí</button>
+              <button class="btn btn-dark m-1">Servicios</button>
+              <button class="btn btn-dark m-1">Clientes</button>
+              <button class="btn btn-dark m-1">Portafolio</button>
+              <button class="btn btn-dark m-1">Blog</button>
+            </div>
+          </div>
+        </nav>
+      <div *ngIf="e_section">
+        <div [innerHtml]="e_section | safe:'html'"></div>
+      </div>
+      <section class="container-fluid">
+        <article class="row">
+          <div class="col-md-12">
+            <ng-container #builder></ng-container>
+          </div>
+        </article>
+      </section>
+    </mat-tab>
+  </mat-tab-group>

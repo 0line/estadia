@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import {PostComponent} from '../post/post.component';
 import {PageComponent} from '../page/page.component';
 import {MediaComponent} from '../media/media.component';
+import { NewpostComponent } from '../newpost/newpost.component';
+import {NewpageComponent} from '../newpage/newpage.component';
 import { LoaderComponentService } from 'src/app/services/loader-component.service';
 
 @Component({
@@ -33,7 +35,6 @@ export class NavAdminComponent implements OnInit{
 
   mostrarContenidoAdmin(){
     this.adminmenu=location.pathname;
-    console.log(this.adminmenu);
     if(this.adminmenu==='/admin'){
       this.loader.setRootViewContainerRef(this.viewContainerRef);
       this.loader.addDynamicComponent(PostComponent);
@@ -45,6 +46,14 @@ export class NavAdminComponent implements OnInit{
     if(this.adminmenu==='/media'){
       this.loader.setRootViewContainerRef(this.viewContainerRef);
       this.loader.addDynamicComponent(MediaComponent);
+    }
+    if(this.adminmenu==='/newpost'){
+      this.loader.setRootViewContainerRef(this.viewContainerRef);
+      this.loader.addDynamicComponent(NewpostComponent);
+    }
+    if(this.adminmenu==='/newpage'){
+      this.loader.setRootViewContainerRef(this.viewContainerRef);
+      this.loader.addDynamicComponent(NewpageComponent);
     }
   }
   

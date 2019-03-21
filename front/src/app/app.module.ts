@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 /**Angular Material */
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 /**Angular Material */
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,8 +26,18 @@ import { PostComponent } from './components/post/post.component';
 import {PageComponent} from './components/page/page.component';
 /**Mis LoaderComponent Dynamics */
 import {LoaderComponentService} from './services/loader-component.service';
+import {TinyMceService} from './services/tiny-mce.service';
 import { HttpClientModule} from "@angular/common/http";
 import { MediaComponent } from './components/media/media.component';
+import { NewpostComponent } from './components/newpost/newpost.component';
+import { FormsModule } from '@angular/forms';
+import { NewpageComponent } from './components/newpage/newpage.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { SafePipePipe } from './pipes/safe-pipe.pipe';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { TinyEditorComponent } from './components/tiny-editor/tiny-editor.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { SliderformComponent } from './components/sliderform/sliderform.component';
 @NgModule({
   declarations: [
     /**Mis Componentes estaticos */
@@ -40,7 +53,12 @@ import { MediaComponent } from './components/media/media.component';
     NavAdminComponent,
     PostComponent,
     PageComponent,
-    MediaComponent
+    MediaComponent,
+    NewpostComponent,
+    NewpageComponent,
+    SafePipePipe,
+    TinyEditorComponent,
+    SliderformComponent
   ],
   imports: [
     BrowserModule,
@@ -58,11 +76,17 @@ import { MediaComponent } from './components/media/media.component';
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
+    MatInputModule,
     /**Angular Material */
-    HttpClientModule
+    MDBBootstrapModule.forRoot(),
+    HttpClientModule,
+    EditorModule,   
+    FormsModule,    
+    MatTabsModule,
+    CKEditorModule
   ],
-  providers: [LoaderComponentService],
+  providers: [LoaderComponentService,TinyEditorComponent],
   bootstrap: [AppComponent],
-  entryComponents:[PostComponent,PageComponent,MediaComponent]
+  entryComponents:[PostComponent,PageComponent,MediaComponent,NewpostComponent,NewpageComponent,TinyEditorComponent,SliderformComponent]
 })
 export class AppModule { }
