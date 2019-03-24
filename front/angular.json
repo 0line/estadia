@@ -22,10 +22,6 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.css",              
               "./node_modules/@fortawesome/fontawesome-free/css/all.css",
@@ -38,6 +34,10 @@
               "./node_modules/bootstrap/dist/js/bootstrap.bundle.js",
               "./node_modules/chart.js/dist/Chart.js",
               "./node_modules/hammerjs/hammer.min.js"
+            ],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
             ],
             "es5BrowserSupport": true
           },

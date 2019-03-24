@@ -11,6 +11,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 /**Mis componentes estaticos */
 import { NavMainComponent } from './components/nav-main/nav-main.component';
 import { HomeSliderComponent } from './components/home-slider/home-slider.component';
@@ -30,7 +31,6 @@ import {TinyMceService} from './services/tiny-mce.service';
 import { HttpClientModule} from "@angular/common/http";
 import { MediaComponent } from './components/media/media.component';
 import { NewpostComponent } from './components/newpost/newpost.component';
-import { FormsModule } from '@angular/forms';
 import { NewpageComponent } from './components/newpage/newpage.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { SafePipePipe } from './pipes/safe-pipe.pipe';
@@ -38,6 +38,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { TinyEditorComponent } from './components/tiny-editor/tiny-editor.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { SliderformComponent } from './components/sliderform/sliderform.component';
+import { PageService } from './services/page.service';
 @NgModule({
   declarations: [
     /**Mis Componentes estaticos */
@@ -81,11 +82,12 @@ import { SliderformComponent } from './components/sliderform/sliderform.componen
     MDBBootstrapModule.forRoot(),
     HttpClientModule,
     EditorModule,   
-    FormsModule,    
+    FormsModule,
+    ReactiveFormsModule,    
     MatTabsModule,
     CKEditorModule
   ],
-  providers: [LoaderComponentService,TinyEditorComponent],
+  providers: [LoaderComponentService,TinyEditorComponent,SliderformComponent,PageService],
   bootstrap: [AppComponent],
   entryComponents:[PostComponent,PageComponent,MediaComponent,NewpostComponent,NewpageComponent,TinyEditorComponent,SliderformComponent]
 })

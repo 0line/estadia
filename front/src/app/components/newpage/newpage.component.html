@@ -1,5 +1,7 @@
 <mat-toolbar>
   <a class="btn btn-dark" routerLink="/page">Regresar</a>
+  <span class="espacio-elementos"></span>
+  <button class="btn btn-dark" (click)="savePage()">Guardar Página</button>
 </mat-toolbar>
 <section class="container-fluid">
     <article class="row">
@@ -52,12 +54,8 @@
       <div *ngIf="e_section">
         <div [innerHtml]="e_section | safe:'html'"></div>
       </div>
-      <section class="container-fluid">
-        <article class="row">
-          <div class="col-md-12">
-            <ng-container #builder></ng-container>
-          </div>
-        </article>
+      <section class="p-3">        
+          <ng-container #builder></ng-container>
       </section>
     </mat-tab>
   </mat-tab-group>

@@ -26,7 +26,6 @@ export class LoaderComponentService {
     this.componentAdd=this.factory.create(this.rootViewContainer.parentInjector);
     this.icomponent.push({name:component.name,componentI:this.componentAdd});
     this.rootViewContainer.insert(this.componentAdd.hostView);
-    console.log(this.icomponent);
   }
   removeDynamicComponent(component){
     var i;

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef, Inject } fr
 import { TinyEditorComponent } from '../tiny-editor/tiny-editor.component';
 import { TinyMceService } from '../../services/tiny-mce.service';
 import { SliderformComponent } from '../sliderform/sliderform.component';
+import { PageService } from 'src/app/services/page.service';
 @Component({
   selector: 'app-newpage',
   templateUrl: './newpage.component.html',
@@ -22,7 +23,11 @@ export class NewpageComponent implements OnInit {
     read:ViewContainerRef
   })viewContainerBuilder:ViewContainerRef;
 
-  constructor( @Inject (LoaderComponentService)LoaderComponentService,private TinyService:TinyMceService,private TinyComponent:TinyEditorComponent) {
+  constructor( @Inject (LoaderComponentService)LoaderComponentService,
+              private TinyService:TinyMceService,
+              private TinyComponent:TinyEditorComponent,
+              private SliderComponent:SliderformComponent,
+              private pageService:PageService) {
     this.loader=LoaderComponentService;
     this.e_id=[];
     this.e_id.push(1);
@@ -60,6 +65,10 @@ export class NewpageComponent implements OnInit {
       this.loader.addDynamicComponent(TinyEditorComponent);
       this.TinyService.setContent(this.e_section);  
     }
+  }
+
+  savePage(){
+    console.log(this.pageService.getSlider());
   }
 
 }
