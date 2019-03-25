@@ -1,48 +1,18 @@
-<section class="container-fluid mt-2" id="x">
+<section class="container-fluid mt-2" id="slidercomponent-{{e_idgeneric}}">
   <article class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Slider</h5>
-          <form [formGroup]="frmSlider" id="slider-form" data-type="slider">
+          <form [formGroup]="frmSlider" id="sliderform-{{e_idgeneric}}" data-type="slider">
             <div class="form-row">
-              <div class="col-md-3 text-center">
-                <div id="img-input-slider-1"></div>
+              <div class="col-md-3 text-center" *ngFor="let i of inputdiv;">
+                <div id="img_slider_{{e_idcomponent[i]}}"></div>
                 <div class="input-group mb-3">
-                  <input type="url" class="form-control" formControlName="input_slider_1" id="input-slider-1" placeholder="Imagen" aria-label="img" aria-describedby="input-image" readonly>
+                  <input type="url" class="form-control" formControlName="input_slider_{{e_idcomponent[i]}}" id="input_slider_{{e_idcomponent[i]}}" placeholder="Imagen" aria-label="img" aria-describedby="input-image" readonly>
                   <div class="input-group-append">
-                    <button mat-raised-button color="primary" id="modal-imagen-slider-1" data-toggle="modal"
-                      data-target="#mediaModal" (click)="openModal('input-slider-1')"><i class="far fa-image"></i></button>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 text-center">
-                <div id="img-input-slider-2"></div>
-                <div class="input-group mb-3">
-                  <input type="url" class="form-control" formControlName="input_slider_2" id="input-slider-2" placeholder="Imagen" aria-label="img" aria-describedby="input-image" readonly>
-                  <div class="input-group-append">
-                    <button mat-raised-button color="primary" id="modal-imagen-slider-2" data-toggle="modal"
-                      data-target="#mediaModal" (click)="openModal('input-slider-2')"><i class="far fa-image"></i></button>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 text-center">
-                <div id="img-input-slider-3"></div>
-                <div class="input-group mb-3">
-                  <input type="url" class="form-control" formControlName="input_slider_3" id="input-slider-3" placeholder="Imagen" aria-label="img" aria-describedby="input-image" readonly>
-                  <div class="input-group-append">
-                    <button mat-raised-button color="primary" id="modal-imagen-slider-3" data-toggle="modal"
-                      data-target="#mediaModal" (click)="openModal('input-slider-3')"><i class="far fa-image"></i></button>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 text-center">
-                <div id="img-input-slider-4"></div>
-                <div class="input-group mb-3">
-                  <input type="url" class="form-control" formControlName="input_slider_4" id="input-slider-4" placeholder="Imagen" aria-label="img" aria-describedby="input-image" readonly>
-                  <div class="input-group-append">
-                    <button mat-raised-button color="primary" id="modal-imagen-slider-4" data-toggle="modal"
-                      data-target="#mediaModal" (click)="openModal('input-slider-4')"><i class="far fa-image"></i></button>
+                    <button mat-raised-button color="primary" id="modal-imagen-slider-{{e_idcomponent[i]}}" data-toggle="modal"
+                      data-target="#mediaModal" (click)="openModal(e_idcomponent[i],e_idgeneric)"><i class="far fa-image"></i></button>
                   </div>
                 </div>
               </div>
@@ -54,7 +24,7 @@
   </article>
 </section>
 <!-- Modal -->
-<div class="modal fade col-lg-12" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true" data-backdrop="false">
+<div class="modal fade col-lg-12" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true" data-backdrop="false" attr.data-idmodal="{{dataid}}" attr.data-formid="{{e_idgeneric}}">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content col-lg-12">
       <div class="modal-header">

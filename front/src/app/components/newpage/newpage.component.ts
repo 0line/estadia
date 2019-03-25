@@ -3,6 +3,8 @@ import { TinyEditorComponent } from '../tiny-editor/tiny-editor.component';
 import { TinyMceService } from '../../services/tiny-mce.service';
 import { SliderformComponent } from '../sliderform/sliderform.component';
 import { PageService } from 'src/app/services/page.service';
+import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-newpage',
   templateUrl: './newpage.component.html',
@@ -25,9 +27,8 @@ export class NewpageComponent implements OnInit {
 
   constructor( @Inject (LoaderComponentService)LoaderComponentService,
               private TinyService:TinyMceService,
-              private TinyComponent:TinyEditorComponent,
-              private SliderComponent:SliderformComponent,
-              private pageService:PageService) {
+              private pageService:PageService,
+              private formBuilder: FormBuilder,) {
     this.loader=LoaderComponentService;
     this.e_id=[];
     this.e_id.push(1);
@@ -68,7 +69,7 @@ export class NewpageComponent implements OnInit {
   }
 
   savePage(){
-    console.log(this.pageService.getSlider());
+    console.log(this.pageService.getPage());
   }
 
 }

@@ -1,12 +1,10 @@
 import { Injectable, Inject,ComponentFactoryResolver } from '@angular/core';
-import { element } from '@angular/core/src/render3';
-import { isComponent } from '@angular/core/src/render3/util';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoaderComponentService {
+  
   factoryResololver: any;
   rootViewContainer: any;
   componentAdd:any;
@@ -14,8 +12,10 @@ export class LoaderComponentService {
   factory:any;
   icomponent=new Array;
   tmp=new Array;
+  idcomponent:number;
   constructor(@Inject(ComponentFactoryResolver)factoryResololver) {
     this.factoryResololver=factoryResololver;
+    this.idcomponent=0;
   }
 
   setRootViewContainerRef(viewContainerRef){
@@ -35,6 +35,9 @@ export class LoaderComponentService {
         delete this.icomponent[i]; 
       }
     }
-    console.log(this.icomponent);
+  }
+
+  createid():number{
+    return this.idcomponent=Math.floor(Math.random() * (1000 - 1));
   }
 }

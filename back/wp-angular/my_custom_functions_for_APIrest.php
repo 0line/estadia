@@ -37,7 +37,7 @@ require_once("custom_endpoints.php");
 
 /********* */
 global $jal_db_version;
-$jal_db_version = '2.1';
+$jal_db_version = '1.2';
 
 function angulardb() {
 	global $wpdb;
@@ -71,7 +71,10 @@ if ( $installed_ver != $jal_db_version ) {
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
     title text not null,
 		builder text NOT NULL,
-		PRIMARY KEY  (id)
+		idpage mediumint(9) NOT NULL,
+		PRIMARY KEY  (id),
+		FOREIGN KEY (builder text NOT NULL,
+		idpage) REFERENCES wp_post(id)
 	)";
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

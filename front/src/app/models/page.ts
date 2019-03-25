@@ -1,5 +1,5 @@
 export interface Page {
-    /* id: number;
+    id: number;
     title: string;
     status:string;
     link:string;
@@ -15,6 +15,6 @@ export interface Page {
     ping_status:string;
     menu_order:number;
     meta:string;
-    template:string; */
+    template:string;
     content:string;
 }
