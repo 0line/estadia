@@ -1,5 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+/**Interceptores */
+import { AlertComponent } from './components/alert/alert.component';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 /**Angular Material */
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
 import {MatTableModule} from '@angular/material/table';
@@ -25,10 +30,10 @@ import { NavAdminComponent } from './components/nav-admin/nav-admin.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { PostComponent } from './components/post/post.component';
 import {PageComponent} from './components/page/page.component';
+import { LoginComponent } from './components/login/login.component';
 /**Mis LoaderComponent Dynamics */
 import {LoaderComponentService} from './services/loader-component.service';
 import {TinyMceService} from './services/tiny-mce.service';
-import { HttpClientModule} from "@angular/common/http";
 import { MediaComponent } from './components/media/media.component';
 import { NewpostComponent } from './components/newpost/newpost.component';
 import { NewpageComponent } from './components/newpage/newpage.component';
@@ -59,7 +64,9 @@ import { PageService } from './services/page.service';
     NewpageComponent,
     SafePipePipe,
     TinyEditorComponent,
-    SliderformComponent
+    SliderformComponent,
+    LoginComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +94,10 @@ import { PageService } from './services/page.service';
     MatTabsModule,
     CKEditorModule
   ],
-  providers: [LoaderComponentService,TinyEditorComponent,SliderformComponent,PageService],
+  providers: [LoaderComponentService,TinyEditorComponent,SliderformComponent,PageService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
   entryComponents:[PostComponent,PageComponent,MediaComponent,NewpostComponent,NewpageComponent,TinyEditorComponent,SliderformComponent]
 })

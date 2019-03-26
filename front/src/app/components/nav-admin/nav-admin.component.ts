@@ -35,23 +35,23 @@ export class NavAdminComponent implements OnInit{
 
   mostrarContenidoAdmin(){
     this.adminmenu=location.pathname;
-    if(this.adminmenu==='/admin'){
+    if(this.adminmenu==='/admin/home'){
       this.loader.setRootViewContainerRef(this.viewContainerRef);
       this.loader.addDynamicComponent(PostComponent);
     }
-    if(this.adminmenu==='/page'){
+    if(this.adminmenu==='/admin/page'){
       this.loader.setRootViewContainerRef(this.viewContainerRef);
       this.loader.addDynamicComponent(PageComponent);
     }
-    if(this.adminmenu==='/media'){
+    if(this.adminmenu==='/admin/media'){
       this.loader.setRootViewContainerRef(this.viewContainerRef);
       this.loader.addDynamicComponent(MediaComponent);
     }
-    if(this.adminmenu==='/newpost'){
+    if(this.adminmenu==='/admin/newpost'){
       this.loader.setRootViewContainerRef(this.viewContainerRef);
       this.loader.addDynamicComponent(NewpostComponent);
     }
-    if(this.adminmenu==='/newpage'){
+    if(this.adminmenu==='/admin/newpage'){
       this.loader.setRootViewContainerRef(this.viewContainerRef);
       this.loader.addDynamicComponent(NewpageComponent);
     }
