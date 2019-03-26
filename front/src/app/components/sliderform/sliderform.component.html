@@ -1,0 +1,58 @@
+<section class="container-fluid mt-2" id="slidercomponent-{{e_idgeneric}}">
+  <article class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Slider</h5>
+          <form [formGroup]="frmSlider" id="sliderform-{{e_idgeneric}}" data-type="slider">
+            <div class="form-row">
+              <div class="col-md-3 text-center" *ngFor="let i of inputdiv;">
+                <div id="img_slider_{{e_idcomponent[i]}}"></div>
+                <div class="input-group mb-3">
+                  <input type="url" class="form-control" formControlName="input_slider_{{e_idcomponent[i]}}" id="input_slider_{{e_idcomponent[i]}}" placeholder="Imagen" aria-label="img" aria-describedby="input-image" readonly>
+                  <div class="input-group-append">
+                    <button mat-raised-button color="primary" id="modal-imagen-slider-{{e_idcomponent[i]}}" data-toggle="modal"
+                      data-target="#mediaModal" (click)="openModal(e_idcomponent[i],e_idgeneric)"><i class="far fa-image"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+<!-- Modal -->
+<div class="modal fade col-lg-12" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true" data-backdrop="false" attr.data-idmodal="{{dataid}}" attr.data-formid="{{e_idgeneric}}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content col-lg-12">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mediaModalLabel">Media</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <section class="container-fluid back">
+          <article class="row p-3">
+            <form [formGroup]="frmimage" class="frm_contentimg">
+              <div class="col-lg-4 col-md-4 col-xs-4 d-inline-flex" *ngFor="let file of media | async as media;">
+                <label class="image-radio" (click)="seturl(file.source_url)">
+                  <img src="{{file.source_url}}" class="img-thumbnail" alt="{{file.alt_text}}">
+                  <input type="radio" formControlName="image_radio" name="image_radio" value="{{file.source_url}}"/>
+                  <i class="fas fa-check invisible"></i>
+                </label>
+              </div>
+            </form>
+          </article>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button mat-raised-button color="accent" data-dismiss="modal">Cerrar</button>
+        <button mat-raised-button color="primary" (click)="setUrlImageInput()" data-dismiss="modal">Seleccionar Imagen</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->

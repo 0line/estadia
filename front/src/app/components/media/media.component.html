@@ -1,0 +1,9 @@
+<section class="container-fluid back">
+  <article class="row p-3">
+    <div class="col-lg-2 col-md-3 col-xs-4" *ngFor="let file of media | async as media;">
+      <div class="card p-2">
+        <img src="{{file.source_url}}" class="card-img-top" alt="{{file.alt_text}}">
+      </div>
+    </div>
+  </article>
+</section>
