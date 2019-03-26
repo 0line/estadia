@@ -7,7 +7,7 @@ import { BlogContentComponent } from './components/blog-content/blog-content.com
 import { ContactContentComponent } from './components/contact-content/contact-content.component';
 import { NavAdminComponent } from './components/nav-admin/nav-admin.component';
 import { LoginComponent } from './components/login/login.component';
-
+import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
 	{ path: 'inicio', component: HomeContentComponent },
 	{ path: 'inicio', component: HomeContentComponent },
@@ -18,6 +18,7 @@ const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
 	{
 		path: 'admin',
+		canActivate: [AuthGuard],
 		//canActivateChild: [RoleGuard],        // <-- This guard will run before the router directs you to the route
 		//data: { roles : ['ROLE_USER'] },      // <-- Current Login in user must have role user.   You can access this array inside your guard.
 		children: [

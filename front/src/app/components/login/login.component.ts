@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -49,6 +50,9 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                   //this.router.navigate([this.returnUrl]);
+                  this.alertService.success("Usuario correcto");
+                  this.loading = true;
+                  this.router.navigate(['/admin/home']);
                 },
                 error => {
                     this.alertService.error(error);

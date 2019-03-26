@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from './../../../environments/environment';
 
 import { User } from '../../models/user';
 
@@ -20,7 +21,7 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-        return this.http.post<any>('http://localhost/estadia/back/wp-json/jwt-auth/v1/token?', { username, password })
+        return this.http.post<any>(environment.apiUrl+'/wp-json/jwt-auth/v1/token?', { username, password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {

@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert/alert.service';
-
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
@@ -9,7 +8,8 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 })
 export class AlertComponent implements OnInit,OnDestroy {
   private subscription: Subscription;
-  message: any;
+  message: any;  
+  @ViewChild('alert') alert: ElementRef;
 
   constructor(private alertService: AlertService) { }
 
@@ -17,6 +17,7 @@ export class AlertComponent implements OnInit,OnDestroy {
       this.subscription = this.alertService.getMessage().subscribe(message => { 
           this.message = message; 
       });
+      
   }
 
   ngOnDestroy() {
