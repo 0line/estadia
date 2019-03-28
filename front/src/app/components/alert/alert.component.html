@@ -1,0 +1,7 @@
+
+<div #alert class="" id="alert_message"  *ngIf="message" [ngClass]="{'d-block':message,'fade show':message, 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error'}" role="alert">
+    <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+        <i class="far fa-times-circle" aria-hidden="true"></i>
+    </button>
+    <div [innerHTML]=message.text></div>
+  </div>
