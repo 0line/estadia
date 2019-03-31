@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 /**Angular Material */
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +45,7 @@ import { TinyEditorComponent } from './components/tiny-editor/tiny-editor.compon
 import {MatTabsModule} from '@angular/material/tabs';
 import { SliderformComponent } from './components/sliderform/sliderform.component';
 import { PageService } from './services/page.service';
+import { EditorformComponent } from './components/editorform/editorform.component';
 @NgModule({
   declarations: [
     /**Mis Componentes estaticos */
@@ -66,7 +68,8 @@ import { PageService } from './services/page.service';
     TinyEditorComponent,
     SliderformComponent,
     LoginComponent,
-    AlertComponent
+    AlertComponent,
+    EditorformComponent
   ],
   imports: [
     BrowserModule,
@@ -92,13 +95,16 @@ import { PageService } from './services/page.service';
     FormsModule,
     ReactiveFormsModule,    
     MatTabsModule,
+    ScrollDispatchModule,
     CKEditorModule
   ],
-  providers: [LoaderComponentService,TinyEditorComponent,SliderformComponent,PageService,
+  providers: [LoaderComponentService,TinyEditorComponent,SliderformComponent,PageService, EditorformComponent,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
-  entryComponents:[PostComponent,PageComponent,MediaComponent,NewpostComponent,NewpageComponent,TinyEditorComponent,SliderformComponent]
+  entryComponents:[PostComponent,PageComponent,MediaComponent,NewpostComponent,
+    NewpageComponent,TinyEditorComponent,SliderformComponent,
+    EditorformComponent]
 })
 export class AppModule { }

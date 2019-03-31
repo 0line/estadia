@@ -19,9 +19,17 @@ export class AlertComponent implements OnInit,OnDestroy {
       });
       
   }
-
+  
   ngOnDestroy() {
       this.subscription.unsubscribe();
   }
-
+  closeAlert(){
+    this.message=false;
+  }
+  ngAfterViewChecked(): void {
+    setTimeout(() => {
+      this.closeAlert();
+    }, 8000);
+      
+  }
 }
