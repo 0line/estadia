@@ -46,6 +46,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { SliderformComponent } from './components/sliderform/sliderform.component';
 import { PageService } from './services/page.service';
 import { EditorformComponent } from './components/editorform/editorform.component';
+
 @NgModule({
   declarations: [
     /**Mis Componentes estaticos */
@@ -99,6 +100,7 @@ import { EditorformComponent } from './components/editorform/editorform.componen
     CKEditorModule
   ],
   providers: [LoaderComponentService,TinyEditorComponent,SliderformComponent,PageService, EditorformComponent,
+    SafePipePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],

@@ -74,11 +74,13 @@ export class NewpageComponent implements OnInit {
   }
 
   savePage(){    
-    this.form=this.formBuilder.group(this.pageService.groupt());
+    /* this.form=this.formBuilder.group(this.pageService.groupt());
     console.info(this.pageService.getPage());
     console.log("****");
-    console.info(this.form.value);
+    console.info(this.form.value); */
     //this.editorForm.saveEditorContent();
+    this.pageService.savePage();
+    
   }
   
 

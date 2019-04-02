@@ -29,8 +29,7 @@ export class LoaderComponentService {
     this.rootViewContainer.insert(this.componentAdd.hostView);
     this.index++;
     this.componentAdd.changeDetectorRef.detectChanges();
-    this.icomponent.push({name:component.name,componentI:this.componentAdd,index:this.index});
-    console.log(this.icomponent);   
+    this.icomponent.push({name:component.name,componentI:this.componentAdd,index:this.index});  
   }
   removeDynamicComponent(componentindex){
     var i;
@@ -44,7 +43,6 @@ export class LoaderComponentService {
         delete this.icomponent[i];
       }
     }
-    console.log(this.icomponent);
   }
 
   createid():number{
@@ -54,4 +52,7 @@ export class LoaderComponentService {
     return this.index;
   }
   
+  getData(){
+    return this.icomponent;
+  }
 }

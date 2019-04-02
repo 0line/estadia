@@ -34,7 +34,7 @@
   </article>
 </section>
 <!-- Modal -->
-<div class="modal fade col-lg-12" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true" data-backdrop="false" attr.data-idmodal="{{dataid}}" attr.data-formid="{{e_idgeneric}}">
+<div class="modal fade col-lg-12" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true" data-backdrop="false" attr.data-idmodal="{{dataid}}" attr.data-index="{{numberIndex}}" attr.data-formid="{{e_idgeneric}}">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content col-lg-12">
       <div class="modal-header">
@@ -46,7 +46,7 @@
       <div class="modal-body">
         <section class="container-fluid back">
           <article class="row p-3">
-            <form [formGroup]="frmimage" class="frm_contentimg" mdbScrollSpyElement="scrollspy1">
+            <form [formGroup]="frmimage" class="frm_contentimg" id="frm_image-{{e_idgeneric}}" mdbScrollSpyElement="scrollspy1">
               <div class="col-lg-4 col-md-2 col-xs-2 d-inline-flex" *ngFor="let file of media | async as media;">
                 <label class="image-radio" (click)="seturl(file.source_url)">
                   <img src="{{file.source_url}}" class="img-thumbnail" alt="{{file.alt_text}}">

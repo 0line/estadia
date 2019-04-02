@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import { MediaService } from 'src/app/services/media.service';
 import {Media} from '../../models/Media';
 import { Observable } from 'rxjs';
@@ -34,30 +34,29 @@ export class SliderformComponent implements OnInit {
               private alertService: AlertService) {
     this.media = this.wp.getMedia();
     this.inputdiv=[0,1,2,3];
-    this.numberIndex=0;
+    this.form=this.formBuilder.group({});
   }
   ngOnInit() {
-    this.createInputsSlider();
     this.frmimage=this.formBuilder.group({
       image_radio: ['', Validators.required]
     });
   }
   ngAfterViewInit(){
     setTimeout(()=>{      
-      this.e_idgeneric=this.loader.createid();
+      this.e_idgeneric=this.loader.createid();      
       this.numberIndex=this.loader.numberComponent();
+      this.createInputsSlider();
     });
   }
-  get f() { 
-    return this.form.controls; }
-
   openModal(e_idelement,e_idcomponent){
     this.media = this.wp.getMedia();
     document.getElementById("mediaModal").setAttribute("data-idmodal",e_idelement);
     document.getElementById("mediaModal").setAttribute("data-formid",e_idcomponent);
+    document.getElementById("mediaModal").setAttribute("data-index",this.numberIndex.toString());  
   }
 
   setUrlImageInput(){
+    
     this.submitted = true;
     //Si el formulario es invalido retorna una respuesta a la vista
     if (this.url==null) {
@@ -66,10 +65,9 @@ export class SliderformComponent implements OnInit {
     }
     else{
       this.idlelement=document.getElementById("mediaModal").getAttribute("data-idmodal");
-      
-      //this.form.controls['input_slider_'+this.idlelement].setValue(this.url);
-      document.getElementById("img_slider_"+this.idlelement).innerHTML='<img src='+this.url+' class="img-thumbnail w-75">';
-      this.pageService.setPage({idcomponent:"slidercomponent-"+document.getElementById("mediaModal").getAttribute("data-formid"), formName:"input_slider_"+this.idlelement,value:this.url,formtype:"slider"});
+      (<HTMLInputElement>document.getElementById('input_slider_'+this.idlelement)).value = this.url;
+      document.getElementById("img_slider_"+this.idlelement).innerHTML='<img src='+this.url+' class="img-thumbnail w-75">';      
+      this.pageService.updatePage({"index":document.getElementById("mediaModal").getAttribute("data-index"),formControl:"input_slider_"+this.idlelement,value:this.url});
     }
   }
   seturl(url){
@@ -89,12 +87,15 @@ export class SliderformComponent implements OnInit {
           id: this.e_idcomponent[element]
         })
       ];
-      this.inputSlider.push(imgSlider[0]);
-    });
+      this.inputSlider.push(imgSlider[0]);  
+    });    
     this.form=this.pageService.createForm(this.inputSlider);
+    this.pageService.setPage({"index":this.numberIndex,"formControl":this.form.controls,"typeComponent":"Slider"});
   }
 
   eliminar(){ 
     this.loader.removeDynamicComponent(this.numberIndex);
   }
+  
+  
 }

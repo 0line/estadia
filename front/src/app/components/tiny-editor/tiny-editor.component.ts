@@ -58,21 +58,19 @@ export class TinyEditorComponent implements OnInit {
           type: 'textarea',
           id: "editor_"+this.e_idgeneric,
           order: 1,
-        }),
-        new createInput({
-          key: "input_typeComponent_"+(this.e_idgeneric),
-          required: true,
-          type: 'hidden',
-          order: 2,
-          id: "input_typeComponent_"+this.e_idgeneric
         })];
-      this.EditorForm=Editor;
+      this.EditorForm=Editor;      
+      this.numberIndex=this.loader.numberComponent();
         this.form=this.pageService.createForm(this.EditorForm);
-        this.numberIndex=this.loader.numberComponent();
+      this.pageService.setPage({"index":this.numberIndex,"formControl":this.form.controls,"typeComponent":"Editor"});
 
     });
   }
-  
+  setContenido(data){
+    //console.log(data);
+    this.pageService.updatePage({"index":this.numberIndex,formControl:"editor_"+this.e_idgeneric,value:data});
+    //this.pageService.updatePage({"index":this.numberIndex,"formControl":this.form.controls,"typeComponent":"Editor"});
+  }
   getIndex(){
     return this.numberIndex;
   }

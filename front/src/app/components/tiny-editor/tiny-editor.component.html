@@ -15,16 +15,12 @@
                                 <div *ngFor="let item of EditorForm">
                                     <div [ngSwitch]="item.controlType">
                                         <div *ngSwitchCase="'textAreaCustom'">
-                                                <editor [formControlName]="item.key" id="{{item.id}}" apiKey="10exaiaymntvt0olvhl7325duyeak4kkor6rlkk5obrozr5l"
+                                                <editor [formControlName]="item.key" (onKeyUp)="setContenido(form.value)" id="{{item.id}}" apiKey="10exaiaymntvt0olvhl7325duyeak4kkor6rlkk5obrozr5l"
                                                 [init]="tinyMceSettings"></editor>
-                                        </div>
-                                        <div *ngSwitchCase="'inputCustom'">
-                                            <input type="{{item.type}}" name="{{item.key}}" id="{{item.id}}" value="Editor">
                                         </div>
                                     </div>
                                 </div>
                             </form>
-                                {{form.value|json}}
                         </div>
                     </div>
                 </div>
