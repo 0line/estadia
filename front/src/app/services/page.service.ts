@@ -4,6 +4,9 @@ import { attrInput } from './attrinput';
 import { LoaderComponentService } from './loader-component.service';
 import { SafePipePipe } from '../pipes/safe-pipe.pipe';
 import { _sanitizeHtml } from '@angular/core/src/sanitization/html_sanitizer';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from './../../environments/environment';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,10 +17,9 @@ export class PageService {
   html:any;
   a_formgroup=new Array();
   data:any;
-  constructor(private loader:LoaderComponentService,private safeHtml:SafePipePipe) { }
+  constructor(private loader:LoaderComponentService,private safeHtml:SafePipePipe, private http:HttpClient) { }
   
   setPage(data){
-    console.log();
     this.jsonPage.push(data);
   }
   updatePage(data){
@@ -30,6 +32,7 @@ export class PageService {
   }
 
   savePage(){    
+    let currentUser: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
     this.componentes=this.loader.getData();
     this.tempJsonPage=[];
     for (let i = 0; i <= this.componentes.length; i++) {
@@ -43,8 +46,30 @@ export class PageService {
         }
       }   
     }
-    this.jsonPage=this.tempJsonPage;
-    this.createHtml(this.jsonPage);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer '+currentUser['token']
+      })
+    };
+    let body={
+      content:'<h1>Hola post</H1>',
+      title:'test',
+      slug:'test',
+      type:'page'
+    };
+     let x=new Promise((resolve, reject) => {
+      this.http.post<any>(environment.apiUrl+"/wp-json/wp/v2/posts",body)
+        .subscribe(res => {
+          console.log(res);
+          resolve(res);
+        }, (err) => {
+          console.log(err);
+          reject(err);
+        });
+    });
+    console.log(x);
+    
   }
   createForm(inputForm:attrInput<any>[]){
     let group: any = {};
@@ -82,7 +107,7 @@ export class PageService {
 
       }
     });
-    console.log(pageHtml);
+    return pageHtml;
   }
 
   buildSlider(params):String{
@@ -109,7 +134,7 @@ export class PageService {
     let contentEditor;
     for (const key in params) {
       if(params[key].value!=''){
-        contentEditor= this.safeHtml.transform(params[key].value,"html");
+        contentEditor=params[key].value;
       }
     }
     return contentEditor;
