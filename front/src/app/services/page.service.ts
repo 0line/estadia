@@ -7,136 +7,128 @@ import { _sanitizeHtml } from '@angular/core/src/sanitization/html_sanitizer';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { map } from 'rxjs/operators';
+import { Page } from '../models/page';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class PageService {
-  jsonPage=new Array();
-  componentes=new Array();
-  tempJsonPage=new Array();
-  html:any;
-  a_formgroup=new Array();
-  data:any;
-  constructor(private loader:LoaderComponentService,private safeHtml:SafePipePipe, private http:HttpClient) { }
-  
-  setPage(data){
+  jsonPage = new Array();
+  componentes = new Array();
+  tempJsonPage = new Array();
+  a_formgroup = new Array();
+  data: any;
+  constructor(private loader: LoaderComponentService, private safeHtml: SafePipePipe, private http: HttpClient) { }
+
+  getPages(): Observable<Page[]> {
+    return this.http.get<Page[]>(environment.apiUrl + '/wp-json/wp/v2/pages');
+  }
+
+  setPage(data) {
     this.jsonPage.push(data);
   }
-  updatePage(data){
+  updatePage(data) {
     this.jsonPage.forEach(element => {
-      element.index==data.index ? element.formControl[data.formControl].setValue(data.value): "";
+      element.index == data.index ? element.formControl[data.formControl].setValue(data.value) : '';
     });
   }
-  getPage(){
+  getPage() {
     return this.jsonPage;
   }
 
-  savePage(){    
-    let currentUser: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
-    this.componentes=this.loader.getData();
-    this.tempJsonPage=[];
+  savePage(params) {
+    const currentUser: any[] = JSON.parse(localStorage.getItem('currentUser')) || [];
+    this.componentes = this.loader.getData();
+    this.tempJsonPage = [];
     for (let i = 0; i <= this.componentes.length; i++) {
-      if(this.componentes[i]!=undefined)
-      {
+      if (this.componentes[i] != undefined) {
         for (let j = 0; j < this.jsonPage.length; j++) {
-          if(this.jsonPage[j].index==this.componentes[i].index){
+          if (this.jsonPage[j].index == this.componentes[i].index) {
             this.tempJsonPage.push(this.jsonPage[j]);
             break;
           }
         }
-      }   
+      }
     }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer '+currentUser['token']
-      })
+    this.jsonPage=this.tempJsonPage;
+    const body = {
+      content: this.createHtml(this.jsonPage),
+      title: params['title'],
+      slug: params['slug'],
+      type: 'page'
     };
-    let body={
-      content:'<h1>Hola post</H1>',
-      title:'test',
-      slug:'test',
-      type:'page'
-    };
-     let x=new Promise((resolve, reject) => {
-      this.http.post<any>(environment.apiUrl+"/wp-json/wp/v2/posts",body)
+    console.log(body);
+    const wpSave = new Promise((resolve, reject) => {
+      this.http.post<any>(environment.apiUrl + '/wp-json/wp/v2/posts', body)
         .subscribe(res => {
-          console.log(res);
           resolve(res);
+          console.log(res);
         }, (err) => {
-          console.log(err);
           reject(err);
+          console.log(err);
         });
     });
-    console.log(x);
-    
   }
-  createForm(inputForm:attrInput<any>[]){
-    let group: any = {};
+  createForm(inputForm: attrInput<any>[]) {
+    const group: any = {};
     inputForm.forEach(inputForm => {
       group[inputForm.key] = inputForm.required ? new FormControl(inputForm.value || '', Validators.required)
                                               : new FormControl(inputForm.value || '');
     });
     this.a_formgroup.push(new FormGroup(group));
-    return new FormGroup(group)
+    return new FormGroup(group);
   }
 
-  groupt(){
+  groupt() {
     return this.a_formgroup;
   }
 
-  dataSlider(param)
-  {
-    this.data=param;
-  }
-
-  getDataSlider(){
-    return this.data;
-  }
-
-  createHtml(json){
-    var pageHtml="";
+  createHtml(json) {
+    let pageHtml = '';
     json.forEach(componente => {
-      if(componente.typeComponent=="Slider"){
-        var slider=this.buildSlider(componente.formControl);
-        pageHtml=pageHtml+" "+slider;
+      if (componente.typeComponent == 'Slider') {
+        const slider = this.buildSlider(componente.formControl);
+        pageHtml = pageHtml + ' ' + slider;
       }
-      if(componente.typeComponent=="Editor"){
-        var editor=this.builderEditor(componente.formControl);
-        pageHtml=pageHtml+" "+editor;
-
+      if (componente.typeComponent == 'Editor') {
+        const editor = this.builderEditor(componente.formControl);
+        pageHtml = pageHtml + ' ' + editor;
       }
     });
     return pageHtml;
   }
 
-  buildSlider(params):String{
-    let  ImgSlider=['<section class="home-slider owl-carousel">'];
+  buildSlider(params): String {
+    const  ImgSlider = ['<section class="home-slider owl-carousel">'];
     for (const key in params) {
-      if(params[key].value!=''){
-        let img= '<div class="slider-item" style="background-image: url('+params[key].value+');">'+
-                '<div class="overlay"></div>'+
-                  '<div class="container">'+
-                    '<div class="row slider-text justify-content-start align-items-center" data-scrollax-parent="true">'+
-                      '<div class="col-md-8 col-lg-7 col-sm-12 ftco-animate text mb-4" data-scrollax=" properties: { translateY: '+"70%"+' }">'+
-                      '</div>'+
-                    '</div>'+
-                  '</div>'+
-                '</div>';
+      if (params[key].value != '') {
+        const img = '<div class="slider-item" style="background-image: url(' + params[key].value + ');">' +
+                      '<div class="overlay"></div>' +
+                        '<div class="container">' +
+                          '<div class="col-md-8 col-lg-7 col-sm-12 ftco-animate text mb-4" data-scrollax=" properties: { translateY: ' + '70%' + ' }">' +
+                          '</div>' +
+                        '</div>' +
+                      '</div>' +
+                    '</div>';
         ImgSlider.push(img);
       }
     }
-    ImgSlider.push('</section>');  
-    return ImgSlider.toString();
+    ImgSlider.push('</section>');
+    var html="";
+    ImgSlider.forEach(element => {
+      html=html+element.split('"').join("'");
+    });
+    return html;
   }
 
-  builderEditor(params){
+  builderEditor(params) {
     let contentEditor;
     for (const key in params) {
-      if(params[key].value!=''){
-        contentEditor=params[key].value;
+      if (params[key].value != '') {
+        contentEditor = params[key].value;
       }
     }
+    contentEditor=contentEditor.split('"').join("'");
     return contentEditor;
   }
 }

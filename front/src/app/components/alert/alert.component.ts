@@ -26,10 +26,15 @@ export class AlertComponent implements OnInit,OnDestroy {
   closeAlert(){
     this.message=false;
   }
+  closeAlertAuto(){
+    setTimeout(() => {      
+      this.message=false;
+    }, 12000);
+  }
   ngAfterViewChecked(): void {
     setTimeout(() => {
-      this.closeAlert();
-    }, 8000);
+      //this.closeAlertAuto();
+    }, 3000);
       
   }
 }

@@ -27,8 +27,8 @@ export class LoaderComponentService {
     this.factory=this.factoryResololver.resolveComponentFactory(component);
     this.componentAdd=this.factory.create(this.rootViewContainer.parentInjector); 
     this.rootViewContainer.insert(this.componentAdd.hostView);
-    this.index++;
     this.componentAdd.changeDetectorRef.detectChanges();
+    this.index++;
     this.icomponent.push({name:component.name,componentI:this.componentAdd,index:this.index});  
   }
   removeDynamicComponent(componentindex){

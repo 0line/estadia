@@ -7,18 +7,13 @@ import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
 import { formControlBinding } from '@angular/forms/src/directives/reactive_directives/form_control_directive';
 import { EditorformComponent } from '../editorform/editorform.component';
+import { AlertService } from 'src/app/services/alert/alert.service';
 @Component({
   selector: 'app-newpage',
   templateUrl: './newpage.component.html',
   styleUrls: ['./newpage.component.scss']
 })
 export class NewpageComponent implements OnInit {
-  /**Contador número de id para los elementos*/
-  e_id:any[];
-  e_section:string;
-  e_editor:string;
-  e_content:string;
-  e_columns:number;
   private loader;
   @ViewChild('editor',{
     read:ViewContainerRef
@@ -27,7 +22,8 @@ export class NewpageComponent implements OnInit {
     read:ViewContainerRef
   })viewContainerBuilder:ViewContainerRef;
   
-  form: FormGroup; 
+  form: FormGroup;
+  frmPage:FormGroup; 
 
   constructor( @Inject (LoaderComponentService)LoaderComponentService,
               private TinyService:TinyMceService,
@@ -35,18 +31,21 @@ export class NewpageComponent implements OnInit {
               private formBuilder: FormBuilder,
               private sl:SliderformComponent,
               private editorForm:EditorformComponent,
-              private tiny:TinyEditorComponent) {
+              private tiny:TinyEditorComponent,
+              private alert:AlertService) {
     this.loader=LoaderComponentService;
-    this.e_id=[];
-    this.e_id.push(1);
-    this.e_columns=1;
     this.form;
+    this.frmPage;
   }
 
   ngOnInit() {    
     this.loader.setRootViewContainerRef(this.viewContainerEdit);
     this.loader.addDynamicComponent(TinyEditorComponent);
     this.form=this.formBuilder.group({});
+    this.frmPage=this.formBuilder.group({
+      title: ['', Validators.required],
+      slug: ['', Validators.required]
+    });
   }
   
 
@@ -69,18 +68,20 @@ export class NewpageComponent implements OnInit {
     else{
       this.loader.setRootViewContainerRef(this.viewContainerEdit);
       this.loader.addDynamicComponent(TinyEditorComponent);
-      this.TinyService.setContent(this.e_section);  
     }
   }
 
-  savePage(){    
-    /* this.form=this.formBuilder.group(this.pageService.groupt());
-    console.info(this.pageService.getPage());
-    console.log("****");
-    console.info(this.form.value); */
-    //this.editorForm.saveEditorContent();
-    this.pageService.savePage();
-    
+  savePage(){ 
+    let slug=this.frmPage.controls['slug'].value;
+    slug=slug.split(' ').join('-');
+    this.frmPage.controls['slug'].setValue(slug);
+
+    if(this.frmPage.controls['slug'].value!='' && this.frmPage.controls['title'].value!=''){
+      this.pageService.savePage(this.frmPage.value);
+    }
+    else{
+      this.alert.error("Faltan datos");
+    }
   }
   
 
