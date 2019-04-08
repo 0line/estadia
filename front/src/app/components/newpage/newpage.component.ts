@@ -72,8 +72,9 @@ export class NewpageComponent implements OnInit {
   }
 
   savePage(){ 
-    let slug=this.frmPage.controls['slug'].value;
-    slug=slug.split(' ').join('-');
+    let slug = this.frmPage.controls['slug'].value;
+    slug = slug.split(/[^A-Za-z0-9]+/g).join('-');
+    slug = slug.split(/[^A-Za-z0-9]+$/g).join('');
     this.frmPage.controls['slug'].setValue(slug);
 
     if(this.frmPage.controls['slug'].value!='' && this.frmPage.controls['title'].value!=''){

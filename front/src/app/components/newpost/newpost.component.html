@@ -1,19 +1,46 @@
 <mat-toolbar>
   <a class="btn btn-dark" routerLink="/admin">Regresar</a>
+  <span class="espacio-elementos"></span>
+  <button class="btn btn-dark" (click)="savePost()">Guardar Post</button>
 </mat-toolbar>
 <section class="container-fluid">
   <article class="row">
     <section class="col-md-12">
-      <form>
+      <app-alert></app-alert>
+      <form [formGroup]="frmPost">
         <mat-form-field class="col-md-8">
-          <input matInput type="text" placeholder="Titulo">
+          <input matInput  formControlName="title" name="title" type="text" placeholder="Titulo">
         </mat-form-field>
       
         <mat-form-field class="col-md-4">
-          <input matInput type="url" placeholder="Url" value="">
-        </mat-form-field>
+          <input matInput  formControlName="slug" name="slug" type="url" placeholder="Slug">
+        </mat-form-field>          
       </form>
-      <app-tiny-editor></app-tiny-editor>
+    </section>
+  </article>
+  <article class="row">
+    <section class="col-md-9">  
+      <editor apiKey="10exaiaymntvt0olvhl7325duyeak4kkor6rlkk5obrozr5l" [init]="tinyMceSettings"></editor>
+    </section>
+    <section class="col-md-3">
+      <form [formGroup]="form" id="postform-{{e_idgeneric}}" data-type="post">
+        <div class="form-row">
+          <div class="col-md-3 text-center" *ngFor="let q of inputSlider;">
+            <div [ngSwitch]="q.controlType">
+              <div *ngSwitchCase="'inputCustom'">
+              <div id="img_post_{{q.id}}"></div>
+              <div class="input-group mb-3">
+                  <input [formControlName]="q.key" [id]="q.key" [type]="q.type" [placeholder]="q.placeholder" class="form-control"  aria-label="img" aria-describedby="input-image" readonly>
+                  <div class="input-group-append">
+                    <button mat-raised-button color="primary" id="modal-imagen-post-{{q.id}}" data-toggle="modal"
+                        data-target="#mediaModal" (click)="openModal(q.id,e_idgeneric)"><i class="far fa-image"></i></button>
+                  </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </form>
     </section>
   </article>
 </section>
