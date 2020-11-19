@@ -6,13 +6,14 @@
 <section class="container-fluid">
     <article class="row">
       <section class="col-md-12">
-        <form>
+        <app-alert></app-alert>
+        <form [formGroup]="frmPage">
           <mat-form-field class="col-md-8">
-            <input matInput type="text" placeholder="Titulo">
+            <input matInput  formControlName="title" name="title" type="text" placeholder="Titulo">
           </mat-form-field>
         
           <mat-form-field class="col-md-4">
-            <input matInput type="url" placeholder="Url" value="">
+            <input matInput  formControlName="slug" name="slug" type="url" placeholder="Slug">
           </mat-form-field>          
         </form>
       </section>
@@ -53,8 +54,11 @@
       <div *ngIf="e_section">
         <div [innerHtml]="e_section | safe:'html'"></div>
       </div>
-      <section class="p-3">        
+      <section class="p-3">    
+        <form [formGroup]="form">
+          
           <ng-container #builder></ng-container>
+        </form>    
       </section>
     </mat-tab>
   </mat-tab-group>

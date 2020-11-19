@@ -2,18 +2,28 @@
   <article class="row">
     <div class="col-md-12">
       <div class="card">
+          <div class="card-header">  
+            <button type="button" class="close" aria-label="Close" (click)="eliminar()">
+                <i class="fas fa-times-circle"></i>
+            </button>             
+            <h5 class="card-title">Slider</h5>  
+          </div>
         <div class="card-body">
-          <h5 class="card-title">Slider</h5>
-          <form [formGroup]="frmSlider" id="sliderform-{{e_idgeneric}}" data-type="slider">
+          <app-alert></app-alert>
+          <form [formGroup]="form" id="sliderform-{{e_idgeneric}}" data-type="slider">
             <div class="form-row">
-              <div class="col-md-3 text-center" *ngFor="let i of inputdiv;">
-                <div id="img_slider_{{e_idcomponent[i]}}"></div>
-                <div class="input-group mb-3">
-                  <input type="url" class="form-control" formControlName="input_slider_{{e_idcomponent[i]}}" id="input_slider_{{e_idcomponent[i]}}" placeholder="Imagen" aria-label="img" aria-describedby="input-image" readonly>
-                  <div class="input-group-append">
-                    <button mat-raised-button color="primary" id="modal-imagen-slider-{{e_idcomponent[i]}}" data-toggle="modal"
-                      data-target="#mediaModal" (click)="openModal(e_idcomponent[i],e_idgeneric)"><i class="far fa-image"></i></button>
+              <div class="col-md-3 text-center" *ngFor="let q of inputSlider;">
+                <div [ngSwitch]="q.controlType">
+                  <div *ngSwitchCase="'inputCustom'">
+                  <div id="img_slider_{{q.id}}"></div>
+                  <div class="input-group mb-3">
+                      <input [formControlName]="q.key" [id]="q.key" [type]="q.type" [placeholder]="q.placeholder" class="form-control"  aria-label="img" aria-describedby="input-image" readonly>
+                      <div class="input-group-append">
+                        <button mat-raised-button color="primary" id="modal-imagen-slider-{{q.id}}" data-toggle="modal"
+                            data-target="#mediaModal" (click)="openModal(q.id,e_idgeneric)"><i class="far fa-image"></i></button>
+                      </div>
                   </div>
+                </div>
                 </div>
               </div>
             </div>
@@ -24,7 +34,7 @@
   </article>
 </section>
 <!-- Modal -->
-<div class="modal fade col-lg-12" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true" data-backdrop="false" attr.data-idmodal="{{dataid}}" attr.data-formid="{{e_idgeneric}}">
+<div class="modal fade col-lg-12" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true" data-backdrop="false" attr.data-idmodal="{{dataid}}" attr.data-index="{{numberIndex}}" attr.data-formid="{{e_idgeneric}}">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content col-lg-12">
       <div class="modal-header">
@@ -36,8 +46,8 @@
       <div class="modal-body">
         <section class="container-fluid back">
           <article class="row p-3">
-            <form [formGroup]="frmimage" class="frm_contentimg">
-              <div class="col-lg-4 col-md-4 col-xs-4 d-inline-flex" *ngFor="let file of media | async as media;">
+            <form [formGroup]="frmimage" class="frm_contentimg" id="frm_image-{{e_idgeneric}}" mdbScrollSpyElement="scrollspy1">
+              <div class="col-lg-4 col-md-2 col-xs-2 d-inline-flex" *ngFor="let file of media | async as media;">
                 <label class="image-radio" (click)="seturl(file.source_url)">
                   <img src="{{file.source_url}}" class="img-thumbnail" alt="{{file.alt_text}}">
                   <input type="radio" formControlName="image_radio" name="image_radio" value="{{file.source_url}}"/>

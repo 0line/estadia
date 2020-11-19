@@ -3,3 +3,48 @@
   <span class="espacio-elementos"></span>
   <a class="btn btn-dark" routerLink="/admin/newpage">Nueva Página</a>
 </mat-toolbar>
+<div class="mat-elevation-z8">
+  <table cdk-table mat-table [dataSource]="dataSource">
+
+    <!-- Id Post -->
+    <ng-container matColumnDef="numero">
+      <th mat-header-cell *matHeaderCellDef> Numero </th>
+      <td mat-cell *matCellDef="let element" [innerHTML]="element.id"></td>
+    </ng-container>
+
+    <!-- Nombre Post -->
+    <ng-container matColumnDef="titulo">
+      <th mat-header-cell *matHeaderCellDef> Titulo </th>
+      <td mat-cell *matCellDef="let element" [innerHTML]="element.title.rendered"></td>
+    </ng-container>
+    <!-- Link Post -->
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef> Link </th>
+      <td mat-cell *matCellDef="let element"><a href="{{element.link}}"class="text-black-50" target="_blank" rel="noopener noreferrer">{{element.link}}</a></td>
+    </ng-container>    
+    <!-- Status Post -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'text-dark': element.status=='publish','text-danger': element.status!='publish'}"[innerHTML]="element.status"></td>
+    </ng-container>
+    <!-- Status Post -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="btn-group">
+          <button mat-mini-fab color="primary" class="mr-2" value="{{element.id}}">
+              <i class="fas fa-pen"></i>
+          </button>
+          <button mat-mini-fab color="primary" class="mr-2" value="{{element.id}}">
+              <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

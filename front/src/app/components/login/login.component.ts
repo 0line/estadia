@@ -20,11 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private route: ActivatedRoute,
     private router: Router,private authenticationService: AuthenticationService, private alertService: AlertService
     ) 
-  { 
-    if (this.authenticationService.currentUserValue) { 
-      this.router.navigate(['/']);
-    }
-  }
+  { }
 
   ngOnInit() {
     this.dataUser=this.formBuilder.group({
@@ -32,6 +28,9 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    if (this.authenticationService.currentUserValue) { 
+      this.router.navigate(['/admin/home']);
+    }
   }
   
   // obtener los datos del formulario para validarlos

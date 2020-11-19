@@ -27,7 +27,7 @@ function redirect_to_permalink() {
   $wp_rewrite->flush_rules();}
 add_action( 'init', 'redirect_to_permalink' );
 // JWT configuration
-define('JWT_AUTH_SECRET_KEY', 'your-top-secret-key');
+define('JWT_AUTH_SECRET_KEY', '6s*ih&?qPDBZzQwSVlu1dvQOW0Kyc>,Znw=Kmaz+|[uUvqKht(^qg:9y}r-0s>G)');
 define('JWT_AUTH_CORS_ENABLE', true);
 
 //File endpoint

@@ -1,22 +1,19 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef, Inject } from '@angular/core';import { LoaderComponentService } from 'src/app/services/loader-component.service';
+import { Component, OnInit, ViewChild, ElementRef, ViewContainerRef, Inject, Input } from '@angular/core';import { LoaderComponentService } from 'src/app/services/loader-component.service';
 import { TinyEditorComponent } from '../tiny-editor/tiny-editor.component';
 import { TinyMceService } from '../../services/tiny-mce.service';
 import { SliderformComponent } from '../sliderform/sliderform.component';
 import { PageService } from 'src/app/services/page.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
+import { formControlBinding } from '@angular/forms/src/directives/reactive_directives/form_control_directive';
+import { EditorformComponent } from '../editorform/editorform.component';
+import { AlertService } from 'src/app/services/alert/alert.service';
 @Component({
   selector: 'app-newpage',
   templateUrl: './newpage.component.html',
   styleUrls: ['./newpage.component.scss']
 })
 export class NewpageComponent implements OnInit {
-  /**Contador número de id para los elementos*/
-  e_id:any[];
-  e_section:string;
-  e_editor:string;
-  e_content:string;
-  e_columns:number;
   private loader;
   @ViewChild('editor',{
     read:ViewContainerRef
@@ -24,29 +21,37 @@ export class NewpageComponent implements OnInit {
   @ViewChild('builder',{
     read:ViewContainerRef
   })viewContainerBuilder:ViewContainerRef;
+  
+  form: FormGroup;
+  frmPage:FormGroup; 
 
   constructor( @Inject (LoaderComponentService)LoaderComponentService,
               private TinyService:TinyMceService,
               private pageService:PageService,
-              private formBuilder: FormBuilder,) {
+              private formBuilder: FormBuilder,
+              private sl:SliderformComponent,
+              private editorForm:EditorformComponent,
+              private tiny:TinyEditorComponent,
+              private alert:AlertService) {
     this.loader=LoaderComponentService;
-    this.e_id=[];
-    this.e_id.push(1);
-    this.e_columns=1;
+    this.form;
+    this.frmPage;
   }
 
   ngOnInit() {    
     this.loader.setRootViewContainerRef(this.viewContainerEdit);
     this.loader.addDynamicComponent(TinyEditorComponent);
+    this.form=this.formBuilder.group({});
+    this.frmPage=this.formBuilder.group({
+      title: ['', Validators.required],
+      slug: ['', Validators.required]
+    });
   }
   
 
   addSliderBuilder(){
     this.loader.setRootViewContainerRef(this.viewContainerBuilder);
     this.loader.addDynamicComponent(SliderformComponent);
-  }
-  removeSliderBuilder(){
-    this.loader.removeDynamicComponent(SliderformComponent);
   }
   addEditorBuilder(){
     this.loader.setRootViewContainerRef(this.viewContainerBuilder);
@@ -58,18 +63,27 @@ export class NewpageComponent implements OnInit {
 
   getContentTab(tab){
     if(tab.index===1){
-      this.loader.removeDynamicComponent(TinyEditorComponent);
-      this.removeEditorBuilder();
+      this.tiny.eliminar();
     }
     else{
       this.loader.setRootViewContainerRef(this.viewContainerEdit);
       this.loader.addDynamicComponent(TinyEditorComponent);
-      this.TinyService.setContent(this.e_section);  
     }
   }
 
-  savePage(){
-    console.log(this.pageService.getPage());
+  savePage(){ 
+    let slug = this.frmPage.controls['slug'].value;
+    slug = slug.split(/[^A-Za-z0-9]+/g).join('-');
+    slug = slug.split(/[^A-Za-z0-9]+$/g).join('');
+    this.frmPage.controls['slug'].setValue(slug);
+
+    if(this.frmPage.controls['slug'].value!='' && this.frmPage.controls['title'].value!=''){
+      this.pageService.savePage(this.frmPage.value);
+    }
+    else{
+      this.alert.error("Faltan datos");
+    }
   }
+  
 
 }

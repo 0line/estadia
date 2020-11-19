@@ -8,8 +8,8 @@ import { ContactContentComponent } from './components/contact-content/contact-co
 import { NavAdminComponent } from './components/nav-admin/nav-admin.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { SliderformComponent } from './components/sliderform/sliderform.component';
 const routes: Routes = [
-	{ path: 'inicio', component: HomeContentComponent },
 	{ path: 'inicio', component: HomeContentComponent },
 	{ path: 'sobre-mí', component: AboutContentComponent },
 	{ path: 'portfolio', component: PortfolioContentComponent },
@@ -29,13 +29,13 @@ const routes: Routes = [
 		{path: 'media', component: NavAdminComponent},
 		{path: 'newpage', component: NavAdminComponent},
 		{path: 'newpost', component: NavAdminComponent},
+		{ path: '**', pathMatch: 'full' , redirectTo: '/login'},
 		{ path: '', redirectTo: '/login', pathMatch: 'full' },
 		// <-- The rest of your user routes
 		]
 	},
-	{ path: '**', pathMatch: 'full' , redirectTo: 'home'},
-	{ path: '', redirectTo: '/inicio', pathMatch: 'full' },
-	{ path: '**', pathMatch: 'full' , redirectTo: 'home'}
+	{ path: '**', pathMatch: 'full' , redirectTo: '/inicio'},
+	{ path: '', redirectTo: '/inicio', pathMatch: 'full' }
 ];
 
 @NgModule({

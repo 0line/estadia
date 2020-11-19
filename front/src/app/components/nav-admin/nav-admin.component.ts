@@ -8,6 +8,8 @@ import {MediaComponent} from '../media/media.component';
 import { NewpostComponent } from '../newpost/newpost.component';
 import {NewpageComponent} from '../newpage/newpage.component';
 import { LoaderComponentService } from 'src/app/services/loader-component.service';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-admin',
@@ -28,7 +30,8 @@ export class NavAdminComponent implements OnInit{
     read:ViewContainerRef
   })viewContainerRef:ViewContainerRef;
 
-  constructor(private breakpointObserver: BreakpointObserver, @Inject (LoaderComponentService)LoaderComponentService) 
+  constructor(private breakpointObserver: BreakpointObserver, @Inject (LoaderComponentService)LoaderComponentService,
+  private auth:AuthenticationService,private router: Router) 
   {
     this.loader=LoaderComponentService;
   }
@@ -59,5 +62,9 @@ export class NavAdminComponent implements OnInit{
   
   ngOnInit(): void {
     this.mostrarContenidoAdmin();
+  }
+  logout(){
+    this.router.navigate(['/inicio']);
+    this.auth.logout();
   }
 }

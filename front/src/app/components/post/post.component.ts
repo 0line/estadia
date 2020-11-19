@@ -16,11 +16,20 @@ export class PostComponent implements OnInit {
   
   posts: Observable<Post[]>;
   constructor(private wp:PostService) {
-    this.dataSource= this.posts = this.wp.getPost();
+    this.posts = this.wp.getPost();
+    this.posts.subscribe(  
+      x => {  
+      this.dataSource = new MatTableDataSource();  
+      this.dataSource.data = x;  
+      this.dataSource.paginator=this.paginator;
+      console.log(this.dataSource.data);
+      },  
+      error => {  
+      console.log('There was an error while retrieving Usuarios!' + error);  
+      });
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
   }
 
 }
